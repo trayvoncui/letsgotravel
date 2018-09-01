@@ -1,0 +1,144 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}旅游攻略{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/base.css') }}">
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="nav_container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="{{ url_for('static',filename='images/title3.png') }}">
+                </a>
+            </div>
+            <!--导航-->
+            <div class="navbar-collapse collapse">
+                <form class="navbar-form navbar-left" role="search" style="margin-top:18px;" action="{{ url_for("main.search") }}" method="post">
+                    <div class="form-group input-group">
+                        <input type="text" id="searchCity" name="searchCity" class="form-control" placeholder="请输入想去的地方！">
+                        <span class="input-group-btn">
+                            <input class="btn btn-default" id='submit' name="submit" type="submit" value="搜索"></input>
+                        </span>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="curlink" href="/">
+                            <span class="glyphicon glyphicon-send"></span>&nbsp;首页</a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{ current_user.avatar_hash }}" height="18px" width="18px">
+                              <b class="caret" ></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ url_for('auth.change_password') }}">
+                                    <span class="glyphicon glyphicon-tree-conifer"></span>&nbsp;修改密码</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('auth.change_email_request') }}">
+                                    <span class="glyphicon glyphicon-envelope"></span>&nbsp;修改邮箱</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('main.edit_post') }}">
+                                    <span class="glyphicon glyphicon-edit"></span>&nbsp;写游记</a>
+                            </li>
+                            <li>
+                                <a class="curlink" href="{{ url_for('main.setting') }}">
+                                    <span class="glyphicon glyphicon-user"></span>&nbsp;个人中心</a>
+                            </li>
+                            <li>
+                                <a class="curlink" href="{{ url_for('main.user',username=current_user.username) }}">
+                                    <span class="glyphicon glyphicon-home"></span>&nbsp;我的首页</a>
+                            </li>
+                            <li>
+                                <a class="curlink" href="{{ url_for('auth.logout') }}">
+                                    <span class="glyphicon glyphicon-log-out"></span>&nbsp;退出</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a class="curlink" href="{{ url_for('auth.login') }}">
+                            <span class="glyphicon glyphicon-log-in"></span>&nbsp;登录</a>
+                    </li>
+                    <li>
+                        <a class="curlink" href="{{ url_for('auth.register')}}">
+                            <span class="glyphicon glyphicon-plus"></span>&nbsp;注册</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!--导航-->
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% block page_content %}{% endblock %}
+    </div>
+    <!--底部-->
+    <div class="footer">
+        <div class="link">
+            <a href="http://www.tuniu.com/" target="_blank">途牛旅游网</a>
+            <a href="http://www.cncn.com/" target="_blank">欣欣旅游网</a>
+            <a href="http://www.zhuna.cn/" target="_blank">住哪儿酒店预订</a>
+            <a href="http://www.ailvxing.com/" target="_blank">爱旅行网</a>
+            <a href="http://www.8264.com/" target="_blank">8264户外运动</a>
+            <a href="http://www.tianqi.com/" target="_blank">天气预报查询</a>
+            <a href="http://www.zuzuche.com/" target="_blank">租租车</a>
+            <a href="http://www.mayi.com/" target="_blank">蚂蚁短租房</a>
+            <a href="http://www.chexun.com/" target="_blank">车讯网</a>
+            <a href="http://trip.elong.com/" target="_blank">艺龙旅游指南</a>
+            <a href="http://you.ctrip.com/" target="_blank">携程旅游</a>
+            <a href="http://www.tieyou.com/" target="_blank">火车票预订</a>
+            <a href="http://www.12306.cn/mormhweb/" target="_blank">12306铁路网站</a>
+            <a href="http://www.mafengwo.cn/?mfw_chid=3546" target="_blank">同程旅游</a>
+            <a href="http://www.yododo.com/" target="_blank">游多多自助游</a>
+            <a href="http://www.lvye.cn/" target="_blank">绿野户外</a>
+        </div>
+        <div class="line"></div>
+        <div class="contractus">
+            <div class="logo">
+                <img src="{{ url_for('static',filename='images/title5.png') }}">
+            </div>
+            <div class="banquan">
+                版权所有：&copy;2018仲恺农业工程学院 Let's Go!
+            </div>
+            <div class="tel">
+                Let's Go！客服热线：
+                <span class="telnumber">13527603494</span> ,
+                <span class="telnumber">13609753206</span>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+    {{ moment.lang('zh-CN') }}
+{% endblock %}
+
+
+
+

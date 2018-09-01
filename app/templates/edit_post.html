@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Let's Go写游记{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/edit_post.css') }}">
+    <script src="{{ url_for('static',filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/setting.js') }}"></script>
+
+{% endblock %}
+
+{% block page_content %}
+    <div class="con">
+    <!--头图和标题-->
+        <div class="head">
+            <div class="headimgparent" >
+                {% if flag %}
+                    <img class="head-img" src="{{ flag }}" id="img">
+                {% else %}
+                     <img class="head-img" src="{{ url_for('static', filename='headimg/back6.jpg') }}" id="img">
+                {% endif %}
+            </div>
+        </div>
+        <div class="write">
+            <div class="col-md-4">
+                {{ wtf.quick_form(form) }}
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+{% block body %}
+    {{ super() }}
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name='body') }}
+{% endblock %}

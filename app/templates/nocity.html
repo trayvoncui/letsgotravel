@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Let's Go!旅游攻略-搜索结果{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <div style="height:480px">
+            <h1>还没有关于{{ city }}的游记喔~</h1>
+            <h3>点击这里返回首页：
+                <a href="{{ url_for('main.index') }}">click here</a>
+            </h3>
+        </div>
+
+    </div>
+{% endblock %}

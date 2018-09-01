@@ -1,0 +1,154 @@
+.container{
+    background-color: #f0f0f0;
+    width:100%;
+    height:1000px;
+    margin-top:61px;
+}
+
+.leftside{
+    float:left;
+    background-color: white;
+    width:300px;
+    height:680px;
+    box-shadow:3px 3px 13px #909090;
+    margin: -13px 0px 0 60px;
+}
+.ontop{
+    padding:50px;
+    overflow: hidden;
+    height:600px;
+}
+
+.leftside img{
+    width:150px;
+    height: 150px;
+    margin-left:25px;
+
+}
+.leftside .profile-header{
+    color: #666666;
+}
+.leftside h3{
+    color:darkorange;
+    text-align: center;
+}
+.leftside p{
+    margin-bottom: 10px;
+    font-size: 15px;
+    overflow: hidden;
+}
+.follow a{
+    width:100px;
+    background-color: orange;
+    border-color: orange;
+    color:white;
+}
+.follow a:hover{
+    background-color: darkorange;
+    border-color: darkorange;
+    color:white;
+}
+
+.three{
+    height:80px;
+    border-top: #e2e2e2 1px solid;
+    border-bottom: #e2e2e2 1px solid;
+}
+.three .box{
+    width:33%;
+    float:left;
+    height:80px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 20px;
+    padding:20px 0;
+
+    border-left: #e2e2e2 1px solid;
+}
+.box p,strong{
+    margin-top:5px;
+    color: #666666;
+}
+.box a{
+    color:#666666;
+}
+
+.rightside{
+    float:left;
+    background-color: white;
+    width:67%;
+    height:880px;
+    box-shadow:3px 3px 13px #909090;
+    padding: 50px;
+    margin: -13px 0px 0 20px;
+}
+.rightside .righttop{
+    width:100%;
+    /*height:50px;*/
+    text-shadow:5px 2px 6px orange;
+    color:orange;
+}
+
+
+
+/* ##########游记####################*/
+.posts {
+    list-style-type: none;
+    padding: 0px;
+    margin: 16px 0px 0px 0px;
+    border-top: 1px solid #e0e0e0;
+    min-height: 480px;
+}
+.post{
+    clear: both;
+    margin:10px 0;
+    height: 200px;
+    padding: 20px;
+}
+.post:hover{
+    background-color: #f6f6f6;
+}
+.posts-a{
+    cursor:pointer;
+    color: #000;
+    text-decoration: none;
+}
+.posts-a:hover{
+    text-decoration: none;
+    color: black;
+}
+.post-titlea:hover{
+    color:Orange;
+}
+.post-bodya{
+    font-size:14px;
+}
+
+.post-imgparent{
+    float:left;
+}
+.post-img{
+    width:220px;
+    height:150px;
+}
+.post-content{
+    height:150px;
+    margin-left:250px;
+}
+.posts-a h3{
+    font-size:20px;
+    margin-top: 0px;
+}
+.post-body{
+    height:93px;
+}
+.post-city{
+    margin-right: 20px;
+}
+.post-date{
+    float:right;
+}
+.pagination{
+    margin:0 10px 10px 0;
+    float:right;
+}

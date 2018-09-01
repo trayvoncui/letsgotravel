@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Let's Go旅游攻略{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/post.css') }}">
+{% endblock %}
+
+{% block page_content %}
+    {% for post in posts %}
+        <!--头图和标题-->
+        <div class="head">
+            <div class="headimgparent">
+                <img class="head-img" src="{{ post.headimg }}">
+            </div>
+            <div class="title">
+                <h2>{{ post.title }}</h2>
+            </div>
+        </div>
+        <!--作者信息-->
+        <div class="userInfo">
+            <span class="userphoto">
+                <img class="photo" src="{{ post.author.avatar_hash }}">
+            </span>
+            <span class="username">
+                <!--链接到个人中心-->
+                <a href="{{ url_for('main.user', username=post.author.username) }}">
+                    {{ post.author.username }}
+                </a>
+            </span>
+            <span class="location">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                {{ post.author.location }}
+            </span>
+            <span class="usertime">
+                {{ moment(post.timestamp).format('L') }}
+            </span>
+        </div>
+        <!--内容-->
+        <div class="content">
+            {{ post.body | safe }}
+        </div>
+        <!-- 分割线-->
+        <div class="contentline"></div>
+   {% endfor %}
+    <!--评论区-->
+    <div class="commentArea">
+        {% if current_user.can(Permission.COMMENT) %}
+            <div class="addcomments">
+                <h4 class="commentsH4">回复游记</h4>
+                {{ wtf.quick_form(form)}}
+            </div>
+        {% endif %}
+        {% include '_comments.html' %}
+        {% if pagination %}
+            <div class="pagination">
+                {{ macros.pagination_widget(pagination, '.post', fragment='#comments', id=posts[0].id) }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="commentline"></div>
+
+{% endblock %}

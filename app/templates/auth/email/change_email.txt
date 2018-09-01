@@ -1,0 +1,11 @@
+亲爱的 {{ user.username }},
+
+确认你的新邮箱地址请点击下面这个链接：
+
+{{ url_for('auth.change_email', token=token, _external=True) }}
+
+很高兴遇见你
+
+Let's Go 团队
+
+Note: 直接回复邮件是无效的哦。

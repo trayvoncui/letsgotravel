@@ -1,0 +1,87 @@
+.nav_container
+{
+    width:100%;
+    box-shadow: 0 0 1px 0 rgba(0,0,0,0.3),0 0 6px 2px rgba(0,0,0,0.15);
+    /*position:fixed;*/
+    z-index:1001;
+    left:0;
+    top:0;
+    background: white;
+}
+.container{
+    margin-top: 61px;   /*顶开头部--公用*/
+}
+.alert{
+    width: 80%;
+    margin: 10px auto;
+}
+/*标题*/
+.navbar-brand
+{
+    padding: 5px 60px;
+    margin-left: 100px;
+}
+
+.navbar-brand>img{
+    height:50px;
+}
+/*导航栏右边*/
+.navbar-right{
+    margin: 10px 80px 0 0;
+}
+
+/*底部*/
+.footer{
+    background: #3c3c3c;
+    color: #c2c2c2;
+    padding-top:20px;
+}
+
+.link{
+    width: 70%;
+    height: 80px;
+    margin: 0 auto 10px auto;
+    font-size: 17px;
+
+}
+.link>a{
+    display: inline-block;
+    margin:7px 20px;
+    color: #c2c2c2;
+    text-decoration: none;
+    cursor: pointer;
+}
+.link>a:hover{
+    color: Orange;
+}
+
+.line{
+    width:91%;
+    height: 5px;
+    margin:0 auto;
+    border-top:1px solid #e0e0e0;
+}
+
+.contractus{
+    width: 80%;
+    height: 120px;
+    margin:0 auto;
+}
+
+.logo{
+    float:left;
+    margin:-11px 80px 20px 80px;
+}
+
+.banquan{
+    margin: 20px 0 10px 0;
+    font-size: 17px;
+}
+
+.tel{
+    font-size: 17px;
+}
+
+.telnumber{
+    color:Orange;
+}

@@ -1,0 +1,49 @@
+<ul class="comments">
+    {% for comment in comments %}
+        <li class="comment">
+            <div class="authorInfo">
+                <div class="comment-thumbnail">
+                    <!--链接到个人中心-->
+                    <a>
+                        <img class="img-rounded" src="{{ comment.author.avatar_hash }}">
+                    </a>
+                    {#  <a href="{{ url_for('.user', username=comment.author.username) }}">#}
+                    {#  <img class="img-rounded profile-thumbnail" src="{{ comment.author.gravatar(size=40) }}">#}
+                    {#  </a>#}
+                </div>
+                <div class="author">
+                    <span class="comment-author">
+                        <!--链接到个人中心-->
+                        <a>{{ comment.author.username }}</a>
+    {#                    <a href="{{ url_for('.user', username=comment.author.username) }}">{{ comment.author.username }}</a>#}
+                    </span>
+                    <span class="comment-date">{{ moment(comment.timestamp).format('L') }}</span>
+                </div>
+            </div>
+            <div class="comment-content">
+                <div class="comment-body">
+                    {% if comment.disabled %}
+                        <p><i>该评论已被管理员折叠</i></p>
+                    {% endif %}
+                    {% if moderate or not comment.disabled %}
+                        {% if comment.body_html %}
+                            {{ comment.body_html | safe }}
+                        {% else %}
+                            {{ comment.body }}
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {% if current_user.is_administrator()  %}
+                    <br>
+                    {% if comment.disabled %}
+                        <a class="btn btn-default btn-xs" style="float: right;margin-top: -40px;"
+                           href="{{ url_for('.moderate_enable', id=comment.id, page=page) }}">启用</a>
+                    {% else %}
+                        <a class="btn btn-danger btn-xs" style="float: right;margin-top: -40px;"
+                           href="{{ url_for('.moderate_disable', id=comment.id, page=page) }}">禁用</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </li>
+    {% endfor %}
+</ul>

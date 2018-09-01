@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Let's go{{ user.username }} {% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/user.css') }}">
+{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <div class="leftside">
+            <div class="ontop">
+                <img class="img-circle profile-thumbnail" src="{{ user.avatar_hash }}">
+                <div class="profile-header">
+                    <h3 style="color:orange">{{ user.username }}</h3>
+                    {% if user.name or user.location %}
+                        <p>
+                            {% if user.name %}
+                                真实姓名：{{ user.name }}<br>
+                            {% endif %}
+                        </p>
+                        <p>
+                            {% if user.location %}
+                                现居：{{ user.location }}<br>
+                            {% endif %}
+                        </p>
+                    {% endif %}
+
+                    {#    管理员可以发邮件给user#}
+                    {% if current_user.is_administrator() %}
+                        <p>
+                            {#             # mailto:收件人#}
+                            <a href="mailto:{user.email}}">{{ user.email }}</a>
+                        </p>
+                    {% endif %}
+
+                    {% if user.about_me %}
+                        <p>个人简介：{{ user.about_me }}</p>
+                    {% else %}
+                        <p>个人简介：他很懒，没有留下任何简介</p>
+                    {% endif %}
+                    <p>ta的回答数：{{ user.comments.count() }}。</p>
+                    <br>
+                    <p class="follow">
+                    {% if current_user.can(Permission.FOLLOW) and user != current_user %}
+                       {% if not current_user.is_following(user) %}
+                            <a href="{{ url_for('.follow', username=user.username) }}"
+                               class="btn btn-primary">+ 关注</a>
+                       {% else %}
+                            <a href="{{ url_for('.unfollow', username=user.username) }}"
+                                class="btn btn-default">取消关注</a>
+                       {% endif %}
+                    {% endif %}
+                    {% if current_user.is_authenticated and user != current_user and user.is_following(current_user) %}
+                        | <span class="label label-default">ta关注了你</span>
+                    {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="three">
+                <div class="box">
+                    <strong><a href="{{ url_for('.followed_by', username=user.username) }}">
+                        {{ user.followed.count() }}
+                    </a></strong>
+                    <p>关注</p>
+                </div>
+                <div class="box">
+                    <strong><a href="{{ url_for('.followers', username=user.username) }}">
+                        {{ user.followers.count() }} </a></strong>
+                    <p>粉丝</p>
+                </div>
+                <div class="box">
+                    <strong>{{ user.posts.count() }}</strong><br>
+                    <p>游记</p>
+                </div>
+            </div>
+        </div>
+        <div class="rightside">
+            <div class="righttop">
+                <h1>ta的游记~</h1>
+            </div>
+            <div class="rightcon">
+                {% include '_posts.html' %}
+                {% if pagination %}
+                    <div class="pagination">
+                        {{ macros.pagination_widget(pagination, '.user', username=user.username) }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

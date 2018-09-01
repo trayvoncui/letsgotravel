@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Let's Go!旅游攻略-搜索结果{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/searchPosts.css') }}">
+{% endblock %}
+
+{% block page_content %}
+    {% include '_posts.html' %}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination,'main.searchResult') }}
+    </div>
+{% endblock %}

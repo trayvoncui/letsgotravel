@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Let's go-修改个人信息{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/setting.css') }}">
+    <script src="{{ url_for('static',filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/setting.js') }}"></script>
+{% endblock %}
+{#################################################################}
+{% block page_content %}
+    <div class="wrapper">
+        <div class="aside">
+            <a href="#" {% if flag==1 %} class="style" {% endif %}>
+                <span class="glyphicon glyphicon-user">&nbsp;我的游记</span></a>
+            <a href="#" {% if flag==2 %} class="style" {% endif %}>
+                <span class="glyphicon glyphicon-list-alt">&nbsp;我的信息</span></a>
+            <a href="#" {% if flag==3 %} class="style" {% endif %}>
+                <span class="glyphicon glyphicon-picture">&nbsp;我的头像</span></a>
+        </div>
+        <div class="content">
+            <div {% if flag != 1 %} class="sec" {% endif %} id="third">
+                <h3 style="color:#444;margin-top: -10px">我的游记</h3>
+                {% if posts %}
+                    <ul class="posts">
+                        {% for post in posts %}
+                            <li class="post">
+                                <div class="post-imgparent">
+                                    <!--跳转到详情页-->
+                                    <a class="posts-a" href="{{ url_for('.post',id=post.id ) }}">
+                                        <img class="post-img" src="{{ post.headimg }}">
+                                    </a>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-title">
+                                        <!--跳转到详情页-->
+                                        <a class="posts-a post-titlea" href="{{ url_for('.post',id=post.id ) }}">
+                                            <h3>{{ post.title }}</h3>
+                                        </a>
+                                    </div>
+                                    <div class="post-body" style="overflow: hidden">
+                                        {{ post.body[0:120] | safe }}
+                                    </div>
+                                    <span class="post-city">
+                                        <span class="glyphicon glyphicon-map-marker"></span>{{ post.city }}
+                                    </span>
+                                    <span class="post-author">
+                                        by <a class="posts-a  post-titlea"
+                                             href="{{ url_for('.user',username=post.author.username) }}">{{ post.author.username }}</a>
+                                    </span>
+                                    <span class="post-date">{{ moment(post.timestamp).format('L') }}</span>
+
+                                    <div style="clear:both;float:right">
+                                        {% if current_user == post.author %}
+                                            <a href="{{ url_for('.edit', id=post.id) }}">
+                                                <span class="label label-primary"
+                                                      style="background-color: orange">重新编辑</span>
+                                            </a>
+                                            <a href="{{ url_for('.delete', id=post.id) }}">
+                                                <span class="label label-danger">删除</span>
+                                            </a>
+{#                                        {% elif current_user.is_administrator() %}#}
+{#                                            <a href="{{ url_for('.edit', id=post.id) }}">#}
+{#                                                <span class="label label-danger"#}
+{#                                                        style="background-color: orange">[管理员]编辑</span>#}
+{#                                            </a>#}
+{#                                            <a href="{{ url_for('.delete', id=post.id) }}">#}
+{#                                                <span class="label label-danger">[管理员]删除</span>#}
+{#                                            </a>#}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="pagination">
+                        {{ macros.pagination_widget(pagination,'.setting') }}
+                    </div>
+
+                {% else %}
+                    <hr>
+                    <p>您还没发表过文章喔~，<a href="{{ url_for('main.edit_post') }}" class="click">点击这里</a>开始书写你的第一篇游记</p>
+                {% endif %}
+            </div>
+            <div {% if flag != 2 %} class="sec" {% endif %}>
+                <div id="nav">
+                    <h3 style="color:#444;margin-top: -10px">我的信息</h3>
+                    <p>注册时间：{{ moment(user.member_since).format('L') }}</p>
+                    <p>上次登录时间：{{ moment(user.last_seen).format('LLL') }}</p>
+                    <hr>
+                </div>
+                <div class="col-md-8">
+                    {{ wtf.quick_form(form1) }}
+                </div>
+            </div>
+            <div {% if flag != 3 %} class="sec" {% endif %}>
+                <div>
+                    <h3 style="color:#444;margin-top: -10px">我的头像</h3>
+                    <hr>
+                    <div id="imgid">
+                        <img src="{{ user.avatar_hash }}" alt=""
+                             style="width:120px;height:120px" id="img">
+                    </div>
+                    <div class="col-md-12" style="margin-top: 20px">
+                        {{ wtf.quick_form(form_o) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+<p>亲爱的 {{ user.username }},</p>
+<p>确认你的新邮箱地址请点击： <a href="{{ url_for('auth.change_email', token=token, _external=True) }}">click here</a>.</p>
+<p>或者, 复制下面这段链接到你的浏览器中打开：</p>
+<p>{{ url_for('auth.change_email', token=token, _external=True) }}</p>
+<p>很高兴遇见你</p>
+<p>Let's Go 团队</p>
+<p><small>Note: 直接回复邮件是无效的哦。</small></p>

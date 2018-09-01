@@ -1,0 +1,46 @@
+<ul class="posts">
+    {% for post in posts %}
+    <li class="post">
+        <div class="post-imgparent">
+            <!--跳转到详情页-->
+            <a class="posts-a" href="{{ url_for('.post',id=post.id ) }}">
+                <img class="post-img" src="{{ post.headimg }}">
+            </a>
+        </div>
+        <div class="post-content">
+            <div class="post-title">
+                <!--跳转到详情页-->
+                <a class="posts-a post-titlea" href="{{ url_for('.post',id=post.id ) }}">
+                    <h3>{{ post.title }}</h3>
+                </a>
+            </div>
+            <div class="post-body" style="overflow: hidden">
+                {{ post.body[0:120] | safe }}...
+                <!--跳转到详情页-->
+{#                <a class="posts-a post-bodya" href="{{ url_for('.post',id=post.id ) }}">#}
+{#                    {{ post.body[0:120]+'...' }}#}
+{#                </a>#}
+            </div>
+            <span class="post-city">
+                <span class="glyphicon glyphicon-map-marker"></span>{{ post.city }}
+            </span>
+            <span class="post-author">
+                by <a class="posts-a  post-titlea" href="{{ url_for('.user',username=post.author.username) }}">
+                    {{ post.author.username }}
+                    </a>
+            </span>
+            <span class="post-date">{{ moment(post.timestamp).format('L') }}</span>
+            <div style="clear:both;float:right">
+                {% if current_user.is_administrator() %}
+                    <a href="{{ url_for('.edit', id=post.id) }}">
+                        <span class="label label-danger">[管理员]编辑</span>
+                    </a>
+                    <a href="{{ url_for('.delete', id=post.id) }}">
+                        <span class="label label-danger">[管理员]删除</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,155 @@
+.container{
+    width:100%;
+    padding:0;
+    /*margin-top: 61px;*/
+}
+.head{
+    height: 506px;
+    position: relative;
+}
+
+.headimgparent{
+    width:100%;
+    position: absolute;
+    top:0;
+    left: 0;
+}
+.head-img{
+    height: 506px;
+    width:100%;
+}
+
+.title{
+    position:absolute;
+    color:white;
+    top: 430px;
+    left: 20%;
+
+}
+.title>h2{
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/*作者信息*/
+.userInfo{
+    height: 75px;
+    width:60%;
+    margin:8px auto;
+    /*border-bottom: 1px solid #e0e0e0;*/
+}
+
+.userphoto{
+    margin-right:10px;
+}
+.photo{
+    width:70px;
+    height:70px;
+    border-radius: 70px;
+}
+
+.username>a{
+    color: Orange;
+    font-size:25px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.usertime{
+    margin:0 15px;
+    color:#ccc;
+    font-size:16px;
+}
+
+.post{
+    margin: 0 10px;
+}
+
+/*内容*/
+.content{
+    width:67%;
+    margin:10px auto 20px auto;
+    font-size:18px;
+}
+
+.contentline{
+    width:91%;
+    height: 5px;
+    margin:0 auto;
+    border-top:1px solid #e0e0e0;
+}
+
+/*评论区*/
+.commentArea{
+    width:67%;
+    margin:0 auto;
+}
+.commentsH4{
+    margin-bottom: -1px;
+    color:Orange;
+}
+
+/*评论*/
+.comments{
+    clear:both;
+    padding-left: 0px;
+}
+
+.comment{
+    list-style-type: none;
+    margin:15px 0;
+}
+
+.comment-thumbnail
+{
+    float:left;
+    margin-right: 10px;
+}
+.comment-thumbnail>a{
+    cursor: pointer;
+}
+.img-rounded{
+    width:40px;
+    height:40px;
+}
+
+.authorInfo
+{
+    height: 40px;
+    background:#f6f6f6;
+    margin-bottom: 12px;
+}
+
+.comment-author{
+    line-height: 40px;
+
+}
+.comment-author>a{
+    font-size: 18px;
+    color:Orange;
+    text-decoration: none;
+    cursor: pointer;
+}
+.comment-date{
+    float:right;
+    line-height: 40px;
+}
+
+.comment-body{
+    margin-left: 45px;
+    font-size: 16px;
+}
+
+/*分页*/
+.pagination{
+    margin:0 10px 10px 0;
+    float:right;
+}
+
+.commentline{
+    clear: both;
+    width:91%;
+    height: 5px;
+    margin:0px auto;
+    border-bottom: 1px solid #e0e0e0;
+}

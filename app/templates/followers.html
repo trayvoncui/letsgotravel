@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Let's go{{ user.username }}{{ title }} {% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/followers.css') }}">
+{% endblock %}
+
+{% block page_content %}
+    <div style="min-height: 550px">
+        <div class="page-header" style="text-shadow:5px 2px 6px #909090">
+        <h1>{{ user.username }}{{ title }} </h1>
+        </div>
+        <div class="outer">
+        {% for follow in follows %}
+            {% if follow.user != user %}
+                <div class="sbox">
+                    <a href="{{ url_for('.user', username = follow.user.username) }}">
+                        <img class="img-circle" src="{{ follow.user.avatar_hash }}">
+                    </a>
+                    <a href="{{ url_for('.user', username = follow.user.username) }}">
+                        {{ follow['user'].username }}
+                    </a>
+                    <span>关注时间：{{ moment(follow['timestamp']).format('L') }}</span>
+                    <p class="follow">
+                        {% if current_user.can(Permission.FOLLOW) and user == current_user %}
+                            {% if endpoint=='.followers' %}
+                                {% if not current_user.is_following(follow.user) %}
+                                    <a href="{{ url_for('.follow_in', username=follow.user.username) }}"
+                                       class="btn btn-primary">+ 关注</a>
+                                {% else %}
+                                    <a class="btn btn-primary">已关注</a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{{ url_for('.unfollow_in', username=follow.user.username) }}"
+                                   class="btn btn-default">取消关注</a>
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+        <div style="clear: both"></div>
+    </div>
+
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, endpoint, username = user.username) }}
+</div>
+{% endblock %}
