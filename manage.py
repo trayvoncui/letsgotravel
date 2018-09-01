@@ -11,7 +11,8 @@ import importlib
 importlib.reload(sys)  #修改PYTHON默认字符编码
 
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+# app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+app = create_app('default')
 manager = Manager(app)
 migrate = Migrate(app,db)
 configure_uploads(app, icon)  #再把app和这个icon这个上传组给绑定 ################
